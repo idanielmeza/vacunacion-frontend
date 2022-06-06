@@ -5,11 +5,17 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import AuthContext from '../../Context/auth/authContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
     const authContext = useContext(AuthContext);
     const {autenticar} = authContext;
+
+    const notify = (msg,type) => toast(msg,{
+        type
+    })
 
     const navigate = useNavigate();
 
@@ -54,7 +60,7 @@ const Login = () => {
             
 
         } catch (error) {
-            alert(error.response.data.mgs)
+            notify('Usuario/Contraseña incorrectos.','error');
         }
 
 
@@ -63,9 +69,10 @@ const Login = () => {
 
 
     return ( 
-        <div className='my-5 container'>
+        <div className='my-5 mx-auto' style={{maxWidth: '35%'}}>
+            <ToastContainer />
             
-            <h2 className='title mx-5'>Bienvenido a VanucaTec</h2>
+            <h2 className='mx-5 my-2 tag is-medium is-link p-4'>Bienvenido a VanucaTec</h2>
             
             <form 
                 onSubmit={handleSubmit}

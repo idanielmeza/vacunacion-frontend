@@ -37,8 +37,6 @@ const PanelAdmin = () => {
                 <Contagios/> : 
                 `Error 404`
             }
-
-
             
         </>
      );

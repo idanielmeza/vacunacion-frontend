@@ -5,10 +5,15 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../../Context/auth/authContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
 
     const {usuario, usuarioEnfermo, logout} = useContext(AuthContext);
+    const notify = (msg,type) => toast(msg,{
+        type
+    });
     
     const navigate = useNavigate();
 
@@ -34,7 +39,7 @@ const Form = () => {
         const {fecha,vacuna} = info;
 
         if(!fecha || !vacuna || !nameFile){
-            alert('Completa la informacion');
+            notify('Completa la informacion','error');
             return;
         }
 
@@ -44,12 +49,12 @@ const Form = () => {
         formData.append('fVacuna', fecha);
 
         try {
-            const resp = await axios.put(`http://localhost:4000/api/alumno/datos/${usuario.numControl}`,formData);
+            await axios.put(`http://localhost:4000/api/alumno/datos/${usuario.numControl}`,formData);
 
-            alert('Se guardo la informacion correctamente')
+            notify('Se guardo la informacion correctamente','success');
 
         } catch (error) {
-            alert('Hubo un error vuelve a intentarlo');
+            notify('Hubo un error vuelve a intentarlo','error');
         }
         
 
@@ -62,9 +67,9 @@ const Form = () => {
             newUser.enfermo = false;
             usuarioEnfermo(newUser);
 
-            alert('Ya puedes regresar a clases, cuidate mucho tqm.')
+            toast('Ya puedes regresar a clases, cuidate mucho tqm.','success')
         } catch (error) {
-            
+            notify('Hubo un error vuelve a intentarlo','error');
         }
         
         
@@ -81,7 +86,7 @@ const Form = () => {
             usuarioEnfermo(newUser);
 
         } catch (error) {
-            alert('Hubo un error');
+            notify('Hubo un error','error');
 
         }
 
@@ -102,6 +107,7 @@ const Form = () => {
     return ( 
 
             <div className="container box">
+                <ToastContainer/>
 
                 <form
                     onSubmit={handleSubmitInfo}
@@ -165,7 +171,7 @@ const Form = () => {
                         
 
                         <input className='button is-link' type='submit'
-                            value='Completar'
+                            value={usuario && !usuario.certificado ? 'Completar': 'Actualizar'}
                         />
                     </div>
 

@@ -10,32 +10,6 @@ const Alumnos = ()=> {
 
     const icon = (i) => <span className="icon is-small"><FontAwesomeIcon icon={i} /></span>
 
-    // const users = 
-    //     [
-    //         {
-    //             numControl : '186p0511',
-    //             carrera: 'Sistemas Computacionales',
-    //             semestre: 8,
-    //             fVacunacion: '2022/10/12',
-    //             tVacuna: 'Aztrazeneca'
-    //         },
-    //         {
-    //             numControl : '186p0511',
-    //             carrera: 'Sistemas Computacionales',
-    //             semestre: 9,
-    //             fVacunacion: '2022/10/12',
-    //             tVacuna: 'Aztrazeneca'
-    //         },
-    //         {
-    //             numControl : '186p0511',
-    //             carrera: 'Sistemas Computacionales',
-    //             semestre: 3,
-    //             fVacunacion: '2022/10/12',
-    //             tVacuna: 'Aztrazeneca'
-    //         }
-
-    //     ]
-
     const crearFecha = f =>{
 
         // Creamos array con los meses del año

@@ -38,7 +38,7 @@ const Charts = () => {
             {
                 label: 'Enfermos ITSPR',
                 data:enfermos.map(dato=> dato.count),
-                backgroundColor:['#FF6384','#36A2EB','#FFCE56','#FF6384','#36A2EB'],
+                // backgroundColor:['#FF6384','#36A2EB','#FFCE56','#FF6384','#36A2EB'],
                 hoverBackgroundColor:['#FF6385','#36A2EC','#FFCE57','#FF6385','#36A2EC'],
                 boderWidth:1,
                 borderColor:'#777',
@@ -52,7 +52,7 @@ const Charts = () => {
           {
               label: 'Vacunacion ITSPR',
               data:vacunados.map(dato=> dato.count),
-              backgroundColor:['#FF6384','#36A2EB','#FFCE56','#FF6384','#36A2EB'],
+              // backgroundColor:['#FF6384','#36A2EB','#FFCE56','#FF6384','#36A2EB'],
               hoverBackgroundColor:['#FF6385','#36A2EC','#FFCE57','#FF6385','#36A2EC'],
               boderWidth:1,
               borderColor:'#777',
@@ -83,7 +83,7 @@ const Charts = () => {
     },[])
 
     return ( 
-        <div className='m-5 box'>
+        <div className='m-5 box container mx-auto'>
           <div className='select'>
             <select
               value={tipo}

@@ -1,7 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Document, Page, pdfjs} from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+
 import {useState, useEffect} from 'react';
 import {faCalendar, faTemperature1} from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios'
@@ -10,6 +13,8 @@ const Alumno = () => {
 
     const [file,setFile] = useState('');
     const {numControl} = useParams();
+
+    // console.log(pdfjs.version);
 
     const crearFecha = f =>{
 
@@ -62,12 +67,15 @@ const Alumno = () => {
     useEffect(async()=>{
         try {
             const data = await(await fetch(`http://localhost:4000/api/temperatura/${numControl}`)).json()
+            if(!data){
+                throw new Error('Alumno no encontrado');
+            }
             setFile(`http://localhost:4000/${data.alumno.numControl}.pdf`);
             setUser(data.alumno);
             setTemperatura(data.temperaturas);
             
         } catch (error) {
-            alert(data.msg);
+            alert('Alumno no encontrado');
             navigate('/admin');
             console.log(error)
         }
@@ -91,7 +99,7 @@ const Alumno = () => {
 
                     {
                         user && user.enfermo ? 
-                        <p className='button is-danger my-2'>Se encuentra enfermo</p> : null
+                        <p className='tag is-medium is-danger my-2'>Alumno enfermo/con sintomas.</p> : null
                     }
 
                     {user && !user.enfermo ?
@@ -130,7 +138,10 @@ const Alumno = () => {
                     </table>
                 </div>
 
-                <div className='box'>
+                <div className='box container mx-auto'>
+
+                    {user && !user.certificado ? <span className='tag is-danger is-light is-medium'>Sin certificado</span>:
+                    <>
                     <span className='tag is-warning is-light is-medium'>Certificado</span>
 
                     
@@ -147,7 +158,8 @@ const Alumno = () => {
                         <button className='button is-info is-small mx-2' onClick={()=>setPageNumer(pageNumber + 1)}>&raquo;</button>
                         }
                      </p>
-
+                     </>
+                        }
                 </div>
 
             </div>

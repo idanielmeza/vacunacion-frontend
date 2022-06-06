@@ -23,11 +23,11 @@ const Search = ({clase}) => {
     }
 
     return ( 
-        <div className='field is-flex is-justify-content-end mx-2'>
+        <div className='field has-addons is-flex is-justify-content-end mx-2'>
             <p className='control'>
                 <input
                     onChange={handleChange}
-                className='input' placeholder='Busca numero de control' type='search'/>
+                className='input ' placeholder='Busca numero de control' type='search'/>
             </p>
             <p className='control'>
                 <button
